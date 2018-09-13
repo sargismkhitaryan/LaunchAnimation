@@ -1,5 +1,7 @@
 # Launch Animation
 
+[![Alt text for your video](https://github.com/sargismkhitaryan/LaunchAnimation/blob/master/ScreenShots/LaunchAnimationScreenRecord.mov)
+
 ## Author
 
 I'm Sargis Mkhitaryan.
