@@ -22,6 +22,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         setupMask()
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(animateLayer(gesture:)))
+        view.addGestureRecognizer(gesture)
     }
     
     // MARK: - Private Methods
@@ -43,15 +45,19 @@ class ViewController: UIViewController {
     fileprivate func animateMask() {
         let keyFrameAnimation = CAKeyframeAnimation(keyPath: "bounds")
         keyFrameAnimation.delegate = self
-        keyFrameAnimation.duration = 1.0
+        keyFrameAnimation.duration = 0.8
         keyFrameAnimation.beginTime = CACurrentMediaTime() + 1
         let initalBounds = NSValue(cgRect: mask!.bounds)
-        let secondBounds = NSValue(cgRect: CGRect(x: 0, y: 0, width: 90, height: 90))
-        let finalBounds = NSValue(cgRect: CGRect(x: 0, y: 0, width: 2000, height: 2000))
+        let secondBounds = NSValue(cgRect: CGRect(x: 0, y: 0, width: 70, height: 70))
+        let finalBounds = NSValue(cgRect: CGRect(x: 0, y: 0, width: 3500, height: 3500))
         keyFrameAnimation.values = [initalBounds, secondBounds, finalBounds]
-        keyFrameAnimation.keyTimes = [0, 0.3, 1]
+        keyFrameAnimation.keyTimes = [0, 0.6, 1]
         keyFrameAnimation.timingFunctions = [CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut), CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)]
         self.mask!.add(keyFrameAnimation, forKey: "bounds")
+    }
+    
+    @objc fileprivate func animateLayer(gesture: UITapGestureRecognizer) {
+        setupMask()
     }
     
 }
@@ -60,6 +66,7 @@ extension ViewController: CAAnimationDelegate {
     func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
         if (flag) {
             backView.layer.mask = nil
+            
         }
     }
 }
